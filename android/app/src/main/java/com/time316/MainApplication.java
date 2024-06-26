@@ -1,4 +1,4 @@
-package com.Time316;
+package com.Jansanvad;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

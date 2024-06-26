@@ -73,9 +73,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.Time316"
-    defaultConfig {n 
-        applicationId "com.Time316"
+    namespace "com.Jansanvad"
+    defaultConfig {
+        applicationId "com.Jansanvad"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

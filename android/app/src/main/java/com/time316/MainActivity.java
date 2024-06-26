@@ -1,4 +1,4 @@
-package com.Time316;
+package com.Jansanvad;
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
@@ -13,7 +13,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "Time316";
+    return "Jansanvad";
   }
 
   /**
