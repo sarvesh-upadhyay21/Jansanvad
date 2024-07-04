@@ -8,6 +8,7 @@ import ViewLeaderScreen from './src/components/ViewLeader_Screen';
 import LeaderDetailsScreen from './src/components/LeaderDetails_Screen';
 import ComplaintScreen from './src/components/Complaint_Screen';
 import MyInformationScreen from './src/components/MyInformation_Screen';
+import VerificationScreen from './src/screens/VerificationScreen';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -18,6 +19,7 @@ const App = () => {
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="Home" component={Home} />
         {/* <Stack.Screen name="login_Screen" component={login_Screen} /> */}
+        <Stack.Screen name="VerificationScreen" component={VerificationScreen} />
         <Stack.Screen name="ComplaintScreen" component={ComplaintScreen} />
         <Stack.Screen name="GalleryScreen" component={GalleryScreen} />
         <Stack.Screen name="ImageDetail" component={ImageDetailScreen} />

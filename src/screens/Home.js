@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Search from './Search';
 import Dashboard from './dashBoard';
 
@@ -14,8 +15,8 @@ const Home = () => {
         headerShown: false,
         tabBarStyle: {
           position: 'absolute',
-          height: 50,
-          width: width,
+          height: hp('7%'), // Adjusted height for responsiveness
+          width: wp('100%'), // Adjusted width for responsiveness
           ...styles.shadow,
         },
         tabBarShowLabel: false,
@@ -33,16 +34,16 @@ const Home = () => {
                 style={{
                   color: focused ? '#fff' : 'grey',
                   fontFamily: 'Roboto-Bold',
-                  fontSize: 15,
+                  fontSize: wp('4%'), // Adjusted font size for responsiveness
                 }}>
-                Dashboard
+                Home
               </Text>
             </View>
           ),
         }}
         name="Dashboard"
         component={Dashboard}
-      />
+      /> 
       <Tab.Screen
         options={{
           tabBarIcon: ({ focused }) => (
@@ -55,7 +56,7 @@ const Home = () => {
               <Text
                 style={{
                   color: focused ? '#fff' : 'grey',
-                  fontSize: 15,
+                  fontSize: wp('4%'), // Adjusted font size for responsiveness
                   fontFamily: 'Roboto-Bold',
                 }}>
                 Search

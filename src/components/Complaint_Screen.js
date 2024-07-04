@@ -1,37 +1,94 @@
-
 import React, { useState } from 'react';
-import { View, StatusBar, Text, TouchableOpacity, StyleSheet, TextInput, Button, Alert } from 'react-native';
+import { View, StatusBar, Text, TouchableOpacity, StyleSheet, TextInput, Button, Alert, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Picker } from '@react-native-picker/picker'; // Import Picker from @react-native-picker/picker
+import { Picker } from '@react-native-picker/picker';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const ComplaintScreen = () => {
     const navigation = useNavigation();
+    const [selectedState, setSelectedState] = useState('');
     const [selectedCM, setSelectedCM] = useState('');
     const [complaint, setComplaint] = useState('');
     const [isComplaintEnabled, setIsComplaintEnabled] = useState(false);
 
-    const CMList = [
-        'Mr. Mulayam Singh Yadav',
-        'Ms. Mayawati',
-        'Mr. Kalyan Singh',
-        'Shri Ram Prakash',
-        'Shri Rajnath Singh',
-        'Ms. Mayawati',
-        'Mr. Mulayam Singh Yadav',
-        'Ms. Mayawati',
-        'Mr. Akhilesh Yadav',
-        'Yogi Adityanath',
-        'Yogi Adityanath'
+    const stateList = [
+        'Andhra Pradesh',
+        'Arunachal Pradesh',
+        'Assam',
+        'Bihar',
+        'Chhattisgarh',
+        'Goa',
+        'Gujarat',
+        'Haryana',
+        'Himachal Pradesh',
+        'Jharkhand',
+        'Karnataka',
+        'Kerala',
+        'Madhya Pradesh',
+        'Maharashtra',
+        'Manipur',
+        'Meghalaya',
+        'Mizoram',
+        'Nagaland',
+        'Odisha',
+        'Punjab',
+        'Rajasthan',
+        'Sikkim',
+        'Tamil Nadu',
+        'Telangana',
+        'Tripura',
+        'Uttar Pradesh',
+        'Uttarakhand',
+        'West Bengal',
     ];
-    
+
+    const CMList = {
+        'Andhra Pradesh': ['Y. S. Jagan Mohan Reddy'],
+        'Arunachal Pradesh': ['Pema Khandu'],
+        'Assam': ['Himanta Biswa Sarma'],
+        'Bihar': ['Nitish Kumar'],
+        'Chhattisgarh': ['Bhupesh Baghel'],
+        'Goa': ['Pramod Sawant'],
+        'Gujarat': ['Bhupendra Patel'],
+        'Haryana': ['Manohar Lal Khattar'],
+        'Himachal Pradesh': ['Sukhvinder Singh Sukhu'],
+        'Jharkhand': ['Hemant Soren'],
+        'Karnataka': ['Basavaraj Bommai'],
+        'Kerala': ['Pinarayi Vijayan'],
+        'Madhya Pradesh': ['Shivraj Singh Chouhan'],
+        'Maharashtra': ['Eknath Shinde', 'Uddhav Thackeray', 'Devendra Fadnavis'],
+        'Manipur': ['N. Biren Singh'],
+        'Meghalaya': ['Conrad Sangma'],
+        'Mizoram': ['Zoramthanga'],
+        'Nagaland': ['Neiphiu Rio'],
+        'Odisha': ['Naveen Patnaik'],
+        'Punjab': ['Bhagwant Mann'],
+        'Rajasthan': ['Ashok Gehlot'],
+        'Sikkim': ['Prem Singh Tamang'],
+        'Tamil Nadu': ['M. K. Stalin'],
+        'Telangana': ['K. Chandrashekar Rao'],
+        'Tripura': ['Manik Saha'],
+        'Uttar Pradesh': ['Yogi Adityanath', 'Akhilesh Yadav', 'Mayawati'],
+        'Uttarakhand': ['Pushkar Singh Dhami'],
+        'West Bengal': ['Mamata Banerjee'],
+    };
+
+    const MAX_ITEMS_TO_SHOW = 5; // Adjust the number of items to show initially
+
+    const handleStateChange = (value) => {
+        setSelectedState(value);
+        setSelectedCM('');
+        setIsComplaintEnabled(false);
+    };
+
     const handleCMChange = (value) => {
         setSelectedCM(value);
-        setIsComplaintEnabled(!!value); // Enable complaint box if a CM is selected
+        setIsComplaintEnabled(!!value);
     };
 
     const handleComplaintSubmit = () => {
-        if (!selectedCM || !complaint) {
-            Alert.alert('Error', 'Please select a CM and provide a complaint.');
+        if (!selectedState || !selectedCM || !complaint) {
+            Alert.alert('Error', 'Please select a state, a CM, and provide a complaint.');
             return;
         }
         // Handle complaint submission
@@ -45,18 +102,41 @@ const ComplaintScreen = () => {
                     <Text style={styles.backText}>Back</Text>
                 </TouchableOpacity>
             </View>
-            <Text style={styles.title}>Select Leader:</Text>
+            <Text style={styles.title}>Select State:<Text style={styles.asterisk}>*</Text></Text>
             <Picker
-                selectedValue={selectedCM}
-                onValueChange={(itemValue, itemIndex) => handleCMChange(itemValue)}
+                selectedValue={selectedState}
+                onValueChange={(itemValue) => handleStateChange(itemValue)}
                 style={styles.picker}
             >
-                <Picker.Item label="Select Leader" value="" />
-                {CMList.map((cm, index) => (
-                    <Picker.Item key={index} label={cm} value={cm} />
+                <Picker.Item label="Select State" value="" />
+                {stateList.map((state, index) => (
+                    <Picker.Item key={index} label={state} value={state} />
                 ))}
             </Picker>
-            <Text style={styles.label}>Enter your complaint:</Text>
+            {selectedState ? (
+                <>
+                    <Text style={styles.title}>Select Leader:<Text style={styles.asterisk}>*</Text></Text>
+                    <Picker
+                        selectedValue={selectedCM}
+                        onValueChange={(itemValue) => handleCMChange(itemValue)}
+                        style={styles.picker}
+                    >
+                        <Picker.Item label="Select Leader" value="" />
+                        {CMList[selectedState].length > MAX_ITEMS_TO_SHOW ? (
+                            <ScrollView style={styles.scrollView} nestedScrollEnabled={true}>
+                                {CMList[selectedState].map((cm, index) => (
+                                    <Picker.Item key={index} label={cm} value={cm} />
+                                ))}
+                            </ScrollView>
+                        ) : (
+                            CMList[selectedState].map((cm, index) => (
+                                <Picker.Item key={index} label={cm} value={cm} />
+                            ))
+                        )}
+                    </Picker>
+                </>
+            ) : null}
+            <Text style={styles.label}>Enter your complaint:<Text style={styles.asterisk}>*</Text></Text>
             <TextInput
                 style={[styles.input, !isComplaintEnabled && styles.disabledInput]}
                 placeholder="Type your complaint here"
@@ -64,7 +144,7 @@ const ComplaintScreen = () => {
                 onChangeText={(text) => setComplaint(text)}
                 editable={isComplaintEnabled}
                 multiline={true}
-                numberOfLines={4} // Adjust the number of lines to fit the content
+                numberOfLines={4}
             />
             <Button
                 title="Submit Complaint"
@@ -82,41 +162,47 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#f8f8f8', // Background color
+        backgroundColor: '#f8f8f8',
+        paddingHorizontal: wp('5%'), // Responsive padding
     },
     title: {
-        fontSize: 24,
+        fontSize: wp('4%'), // Responsive font size
         fontWeight: 'bold',
-        marginBottom: 20,
-        color: '#333', // Text color
+        marginBottom: hp('2%'), // Responsive margin
+        color: '#333',
+        alignSelf: 'flex-start', // Align text to the left
     },
     input: {
-        height: 120,
-        width: '80%',
+        height: hp('15%'), // Responsive height
+        width: '100%',
         borderColor: '#ccc',
         borderWidth: 1,
-        borderRadius: 10, // Increased border radius
-        marginBottom: 20,
-        paddingHorizontal: 10,
-        backgroundColor: '#fff', // Input background color
+        borderRadius: 10,
+        marginBottom: hp('2%'), // Responsive margin
+        paddingHorizontal: wp('2%'), // Responsive padding
+        backgroundColor: '#fff',
     },
     disabledInput: {
-        backgroundColor: '#eee', // Disabled input background color
+        backgroundColor: '#eee',
     },
     label: {
-        fontSize: 18,
-        marginBottom: 10,
-        color: '#333', // Text color
+        fontSize: wp('4.5%'), // Responsive font size
+        marginBottom: hp('1%'), // Responsive margin
+        color: '#333',
+        alignSelf: 'flex-start', // Align text to the left
+    },
+    asterisk: {
+        color: 'red',
     },
     button: {
-        backgroundColor: '#007aff', // Button background color
-        paddingVertical: 12,
-        paddingHorizontal: 20,
+        backgroundColor: '#007aff',
+        paddingVertical: hp('1.5%'), // Responsive padding
+        paddingHorizontal: wp('5%'), // Responsive padding
         borderRadius: 5,
     },
     buttonText: {
-        color: '#fff', // Button text color
-        fontSize: 16,
+        color: '#fff',
+        fontSize: wp('4%'), // Responsive font size
         fontWeight: 'bold',
     },
     header: {
@@ -124,23 +210,26 @@ const styles = StyleSheet.create({
         top: 0,
         left: 0,
         right: 0,
-        height: 100,
-        backgroundColor: '#007aff', // Header background color
+        height: hp('10%'), // Responsive height
+        backgroundColor: '#007aff',
         justifyContent: 'center',
-        paddingHorizontal: 16,
+        paddingHorizontal: wp('4%'), // Responsive padding
     },
     backText: {
-        color: '#000', // Text color
-        fontSize: 16,
-        marginTop: 50
+        color: '#000',
+        fontSize: wp('4%'), // Responsive font size
+        marginTop: hp('6%'), // Responsive margin
     },
     picker: {
-        height: 50,
-        width: '80%',
-        marginBottom: 20,
-        backgroundColor: '#fff', // Picker background color
+        height: hp('6%'), // Responsive height
+        width: '100%',
+        marginBottom: hp('2%'), // Responsive margin
+        backgroundColor: '#fff',
         borderWidth: 1,
         borderColor: '#ccc',
         borderRadius: 5,
+    },
+    scrollView: {
+        maxHeight: hp('20%'), // Adjust height as needed
     },
 });

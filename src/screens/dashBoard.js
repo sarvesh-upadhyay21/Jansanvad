@@ -1,108 +1,165 @@
-import React from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar, ScrollView, FlatList } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { FlatList, Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { ActionCenter } from '../components';
 import { dummyData } from '../constants';
-import { useNavigation } from '@react-navigation/native';
 
 const Dashboard = () => {
     const navigation = useNavigation();
+    const [isVerified, setIsVerified] = useState(false);
+    const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+
+    useEffect(() => {
+        const checkToken = async () => {
+            const token = await AsyncStorage.getItem('verifiedToken');
+            console.log('tokentoken==>', token)
+            if (token === '123456') {
+                setIsVerified(true);
+            } else {
+                navigation.replace('VerificationScreen');
+            }
+        };
+
+        checkToken();
+    }, []);
 
     const handleComplaintPress = () => {
-        navigation.navigate('ComplaintScreen');
+        if (isVerified) {
+            navigation.navigate('ComplaintScreen');
+        } else {
+            navigation.navigate('VerificationScreen');
+        }
     };
 
     const handleSuggestionPress = () => {
-        navigation.navigate('ComplaintScreen');
+        if (isVerified) {
+            navigation.navigate('ComplaintScreen');
+        } else {
+            navigation.navigate('VerificationScreen');
+        }
     };
 
     const handleInvitePress = () => {
-        navigation.navigate('ComplaintScreen');
+        if (isVerified) {
+            navigation.navigate('ComplaintScreen');
+        } else {
+            navigation.navigate('VerificationScreen');
+        }
     };
 
     const handleViewLeaderPress = () => {
-        navigation.navigate('ViewLeaderScreen');
+        if (isVerified) {
+            navigation.navigate('ViewLeaderScreen');
+        } else {
+            navigation.navigate('VerificationScreen');
+        }
     };
 
     const handleGalleryPress = () => {
-        navigation.navigate('GalleryScreen');
+        if (isVerified) {
+            navigation.navigate('GalleryScreen');
+        } else {
+            navigation.navigate('VerificationScreen');
+        }
     };
 
     const handleInfoPress = () => {
-        navigation.navigate('MyInformationScreen');
+        if (isVerified) {
+            navigation.navigate('MyInformationScreen');
+        } else {
+            navigation.navigate('VerificationScreen');
+        }
     };
 
     // Get current date
     const currentDate = new Date().toLocaleDateString();
 
+    const handleLogout = async () => {
+        await AsyncStorage.removeItem('verifiedToken');
+        setIsVerified(false);
+        navigation.replace('VerificationScreen');
+        // navigation.replace('Home');
+    };
+
+
+    const toggleDropdown = () => {
+        setIsDropdownVisible(!isDropdownVisible);
+    };
     return (
-        <View style={{ flex: 1 }}>
+        <View style={styles.container}>
             <StatusBar barStyle='light-content' translucent={true} backgroundColor='transparent' />
-            <LinearGradient start={{ x: 0.0, y: 0.4 }} end={{ x: 0.5, y: 1.0 }} location={[0, 1]} colors={['#2D97DA', '#2249D6']} style={{ flex: 1.2, flexDirection: 'column' }}>
-                <View style={{ flexDirection: 'column', marginTop: hp('10%'), paddingHorizontal: '5%' }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                        <View style={{ flexDirection: 'column' }}>
-                            <Text style={{ fontFamily: 'Roboto-Regular', fontSize: 16, color: '#fff' }}>Welcome to</Text>
-                            <Text style={{ fontFamily: 'Roboto-Medium', color: '#fff', fontSize: 22 }}>Jansanvad</Text>
+            <LinearGradient start={{ x: 0.0, y: 0.4 }} end={{ x: 0.5, y: 1.0 }} location={[0, 1]} colors={['#2D97DA', '#2249D6']} style={styles.header}>
+                <View style={styles.headerContent}>
+                    <View style={styles.headerRow}>
+                        <View style={styles.headerTextContainer}>
+                            <Text style={styles.welcomeText}>Welcome to</Text>
+                            <Text style={styles.appName}>Jansanvad</Text>
                         </View>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Image source={require('../assets/images/India.png')} resizeMode='cover' style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 15 }} />
+                        {/* <View style={styles.flagContainer}>
+                            <Image source={require('../assets/images/India.png')} resizeMode='cover' style={styles.flag} />
+                        </View> */}
+
+                        <View style={styles.flagContainer}>
+                            <TouchableOpacity onPress={toggleDropdown}>
+                                <Image source={require('../assets/images/India.png')} resizeMode='cover' style={styles.flag} />
+                            </TouchableOpacity>
+                            {isDropdownVisible && (
+                                <TouchableOpacity onPress={handleLogout} style={styles.logoutContainer}>
+                                    <Text style={styles.logoutText}>Logout</Text>
+                                </TouchableOpacity>
+                            )}
                         </View>
                     </View>
-                    <View style={{ flexDirection: 'row', marginTop: 25, justifyContent: 'space-between', alignItems: 'center' }}>
-                        <View style={{ flexDirection: 'column' }}>
-                            <Text style={{ color: '#fff', fontSize: 28, fontFamily: 'Roboto-Bold' }}>{currentDate}</Text>
-                        </View>
+                    <View style={styles.dateRow}>
+                        <Text style={styles.dateText}>{currentDate}</Text>
                     </View>
                 </View>
             </LinearGradient>
-            <View style={{ flex: 2.5 }}>
-                <View style={{ flexDirection: 'column', backgroundColor: '#fff', paddingHorizontal: wp('5%') }}>
-                    <View style={{ flexDirection: 'row', backgroundColor: '#fff', height: hp('13%'), width: '100%', alignItems: 'center', justifyContent: 'space-around', borderRadius: 10, borderWidth: 1, borderColor: 'rgba(255,255,255,0.1)', elevation: 10, shadowColor: '#000', shadowRadius: 10, marginTop: -25 }}>
-                        <View style={{ width: '33%' }}>
+            <View style={styles.mainContent}>
+                <View style={styles.actionCenterContainer}>
+                    <View style={styles.actionCenterRow}>
+                        <View style={styles.actionCenterItem}>
                             <ActionCenter img_src={require('../assets/icons/complain.png')} img_text="Complaint" onPress={handleComplaintPress} />
                         </View>
-                        <View style={{ width: '33%' }}>
+                        <View style={styles.actionCenterItem}>
                             <ActionCenter img_src={require('../assets/icons/suggestions.png')} img_text="Suggestions" onPress={handleSuggestionPress} />
                         </View>
-                        <View style={{ width: '33%' }}>
+                        <View style={styles.actionCenterItem}>
                             <ActionCenter img_src={require('../assets/icons/invitation.png')} img_text="Invite" onPress={handleInvitePress} />
                         </View>
-                    </View>
-                    <View style={{ flexDirection: 'row', backgroundColor: '#fff', height: hp('13%'), width: '100%', alignItems: 'center', justifyContent: 'space-around', borderRadius: 10, borderWidth: 1, borderColor: 'rgba(255,255,255,0.1)', elevation: 10, shadowColor: '#000', shadowRadius: 10, marginTop: 10 }}>
-                        <View style={{ width: '33%' }}>
+                        <View style={styles.actionCenterItem}>
                             <ActionCenter img_src={require('../assets/icons/leader.png')} img_text="View Leader" onPress={handleViewLeaderPress} />
                         </View>
-                        <View style={{ width: '33%' }}>
+                        <View style={styles.actionCenterItem}>
                             <ActionCenter img_src={require('../assets/icons/image-gallery.png')} img_text="Gallery" onPress={handleGalleryPress} />
                         </View>
-                        <View style={{ width: '33%' }}>
+                        <View style={styles.actionCenterItem}>
                             <ActionCenter img_src={require('../assets/icons/resume.png')} img_text="My Info" onPress={handleInfoPress} />
                         </View>
                     </View>
                 </View>
-                <View style={{ flexDirection: 'column' }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, paddingHorizontal: 10 }}>
-                        <Text style={{ fontFamily: 'Roboto-Medium', color: '#333', fontSize: 22 }}>Events</Text>
+                <View style={styles.eventsContainer}>
+                    <View style={styles.eventsHeader}>
+                        <Text style={styles.eventsTitle}>Events</Text>
                         <TouchableOpacity onPress={() => console.log('see all')}>
-                            <Text style={{ fontFamily: 'Roboto-Medium', color: '#2249DA', fontSize: 20 }}>See All</Text>
+                            <Text style={styles.seeAllText}>See All</Text>
                         </TouchableOpacity>
                     </View>
                     <FlatList
                         keyExtractor={(item) => item.id}
                         data={dummyData.coins}
                         renderItem={({ item }) => (
-                            <View style={{ position: 'relative', flexDirection: 'column', height: hp('30%'), width: wp('70%'), borderWidth: 1, borderColor: '#ddd', backgroundColor: '#fff', borderRadius: 15, marginRight: 10, marginTop: 10 }}>
-                                <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 10, paddingTop: 15 }}>
-                                    <Image style={{ height: 25, width: 25 }} source={item.image} />
-                                    <Text style={{ fontFamily: 'Roboto-Bold', color: '#333', fontSize: 18 }}> {item.currency}</Text>
-                                    <Text style={{ marginHorizontal: 10, fontFamily: 'Roboto-Regular-Italic', fontSize: 14 }}>2 mins ago</Text>
+                            <View style={styles.eventItem}>
+                                <View style={styles.eventHeader}>
+                                    <Image style={styles.eventIcon} source={item.image} />
+                                    <Text style={styles.eventCurrency}>{item.currency}</Text>
+                                    <Text style={styles.eventTime}>2 mins ago</Text>
                                 </View>
-                                <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: 'space-around', alignItems: 'center', padding: 5 }}>
-                                    <View style={{ flexDirection: 'column' }}>
-                                        <Text style={{ fontFamily: 'Roboto-Bold', color: '#333', fontSize: 20 }}>{item.amount}</Text>
-                                    </View>
+                                <View style={styles.eventContent}>
+                                    <Text style={styles.eventAmount}>{item.amount}</Text>
                                 </View>
                             </View>
                         )}
@@ -117,5 +174,169 @@ const Dashboard = () => {
 export default Dashboard;
 
 const styles = StyleSheet.create({
-
+    container: {
+        flex: 1,
+    },
+    header: {
+        flex: 1.2,
+        flexDirection: 'column',
+    },
+    headerContent: {
+        flexDirection: 'column',
+        marginTop: hp('10%'),
+        paddingHorizontal: wp('5%'),
+    },
+    headerRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+    },
+    headerTextContainer: {
+        flexDirection: 'column',
+    },
+    welcomeText: {
+        fontFamily: 'Roboto-Regular',
+        fontSize: 16,
+        color: '#fff',
+    },
+    appName: {
+        fontFamily: 'Roboto-Medium',
+        color: '#fff',
+        fontSize: 22,
+    },
+    flagContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    flag: {
+        width: wp('10%'),
+        height: wp('10%'),
+        borderRadius: wp('5%'),
+        marginLeft: wp('4%'),
+    },
+    logoutContainer: {
+        backgroundColor: '#fff',
+        borderRadius: 5,
+        padding: wp('2%'),
+        position: 'absolute',
+        top: wp('14%'),
+        alignItems: 'center',
+    },
+    logoutText: {
+        fontSize: wp('4%'),
+        color: '#333',
+    },
+    dropdownContainer: {
+        marginTop: 10,
+    },
+    selectedText: {
+        fontSize: 16,
+        color: '#333',
+    },
+    placeholderText: {
+        fontSize: 16,
+        color: '#aaa',
+    },
+    dateRow: {
+        flexDirection: 'row',
+        marginTop: 25,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    dateText: {
+        color: '#fff',
+        fontSize: 28,
+        fontFamily: 'Roboto-Bold',
+    },
+    mainContent: {
+        flex: 2.5,
+    },
+    actionCenterContainer: {
+        flexDirection: 'column',
+        backgroundColor: '#fff',
+        paddingHorizontal: wp('5%'),
+    },
+    actionCenterRow: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        backgroundColor: '#fff',
+        height: hp('28%'), // adjusted height for two rows
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: 'rgba(255,255,255,0.1)',
+        elevation: 10,
+        shadowColor: '#000',
+        shadowRadius: 10,
+        marginTop: -25,
+    },
+    actionCenterItem: {
+        width: '30%', // adjusted width to fit 3 items per row
+        marginVertical: 10,
+    },
+    eventsContainer: {
+        flexDirection: 'column',
+    },
+    eventsHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 10,
+        paddingHorizontal: 10,
+    },
+    eventsTitle: {
+        fontFamily: 'Roboto-Medium',
+        color: '#333',
+        fontSize: 22,
+    },
+    seeAllText: {
+        fontFamily: 'Roboto-Medium',
+        color: '#2249DA',
+        fontSize: 20,
+    },
+    eventItem: {
+        position: 'relative',
+        flexDirection: 'column',
+        height: hp('30%'),
+        width: wp('70%'),
+        borderWidth: 1,
+        borderColor: '#ddd',
+        backgroundColor: '#fff',
+        borderRadius: 15,
+        marginRight: 10,
+        marginTop: 10,
+    },
+    eventHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 10,
+        paddingTop: 15,
+    },
+    eventIcon: {
+        height: 25,
+        width: 25,
+    },
+    eventCurrency: {
+        fontFamily: 'Roboto-Bold',
+        color: '#333',
+        fontSize: 18,
+    },
+    eventTime: {
+        marginHorizontal: 10,
+        fontFamily: 'Roboto-Regular-Italic',
+        fontSize: 14,
+    },
+    eventContent: {
+        flexDirection: 'row',
+        marginTop: 20,
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        padding: 5,
+    },
+    eventAmount: {
+        fontFamily: 'Roboto-Bold',
+        color: '#333',
+        fontSize: 20,
+    },
 });
