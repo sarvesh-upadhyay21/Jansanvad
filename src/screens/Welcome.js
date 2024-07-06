@@ -1,24 +1,51 @@
-import React from 'react';
-import { Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Dimensions, Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 const Welcome = ({ navigation }) => {
+    const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width);
+    const [screenHeight, setScreenHeight] = useState(Dimensions.get('window').height);
+
+    useEffect(() => {
+        const updateLayout = () => {
+            setScreenWidth(Dimensions.get('window').width);
+            setScreenHeight(Dimensions.get('window').height);
+        };
+
+        Dimensions.addEventListener('change', updateLayout);
+
+        return () => {
+            // Dimensions.removeEventListener('change', updateLayout);
+        };
+    }, []);
+
+    const isLandscape = screenWidth > screenHeight;
+
     return (
         <View style={styles.container}>
             <StatusBar barStyle="light-content" translucent={true} backgroundColor="transparent" />
             <LinearGradient start={{ x: 0.0, y: 0.4 }} end={{ x: 0.5, y: 1.0 }} location={[0, 1]} colors={['#fff', '#fff']} style={styles.gradient}>
                 <View style={styles.imageContainer}>
-                    <Image resizeMode='contain' style={styles.image} source={require('../assets/images/Image-1.jpeg')} />
+                    <Image
+                        resizeMode='contain'
+                        style={[
+                            styles.image,
+                            isLandscape ? styles.imageLandscape : null,
+                        ]}
+                        source={require('../assets/images/Image-1.jpeg')}
+                    />
                 </View>
                 <View style={styles.textContainer}>
                     <View style={styles.textBox}>
                         <Text style={styles.title}>Welcome to Jansanvad</Text>
                         <Text style={styles.subtitle}>Engage in Meaningful Public Discourse with Us</Text>
                         <Text style={styles.description}>This app is Powered by "Digimarps" a leading Digital Marketing Company</Text>
-                        <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.button}>
-                            <Text style={styles.buttonText}>Get Started</Text>
-                        </TouchableOpacity>
+                       
+                            <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.button}>
+                                <Text style={styles.buttonText}>Get Started</Text>
+                            </TouchableOpacity>
+                        
                     </View>
                 </View>
             </LinearGradient>
@@ -38,13 +65,16 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         flex: 2.5,
-        flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'flex-start',
+        alignItems: 'center',
     },
     image: {
-        width: wp('100%'),
-        height: hp('60%'),
+        width: '100%', // Adjusted to full width by default
+        height: hp('60%'), // Default height
+    },
+    imageLandscape: {
+        width: wp('50%'), // Adjust the width as per your requirement when landscape
+        height: hp('30%'), // Adjust the height as per your requirement when landscape
     },
     textContainer: {
         flex: 2,
@@ -84,7 +114,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     button: {
-        position: 'relative',
         width: '100%',
         backgroundColor: '#2284c4',
         height: 50,
