@@ -3,7 +3,7 @@ import { Image, StyleSheet, View, Text } from 'react-native';
 
 const ImageDetailScreen = ({ route }) => {
     const { imageIndex, date } = route.params;
-    const imageUrl = '../assets/images/India.png'; // Example image URL
+    const imageUrl = '../assets/images/cm_images/sarvesh.jpg'; // Example image URL
 
     return (
         <View style={styles.container}>

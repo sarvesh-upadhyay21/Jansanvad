@@ -22,15 +22,6 @@ const MyInformationScreen = () => {
 
     return (
         <View style={styles.container}>
-            <StatusBar barStyle='light-content' />
-            <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}>
-                    <Text style={styles.backText}>Back</Text>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.titleContainer}>
-                <Text style={styles.title}>My Information</Text>
-            </View>
             <View style={styles.profileContainer}>
                 <Image source={require('../assets/images/India.png')} resizeMode='cover' style={styles.profileImage} />
                 <Text style={styles.name}>{user.name}</Text>

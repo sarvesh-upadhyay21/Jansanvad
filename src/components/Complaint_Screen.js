@@ -96,12 +96,6 @@ const ComplaintScreen = () => {
 
     return (
         <View style={styles.container}>
-            <StatusBar barStyle='light-content' />
-            <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}>
-                    <Text style={styles.backText}>Back</Text>
-                </TouchableOpacity>
-            </View>
             <Text style={styles.title}>Select State:<Text style={styles.asterisk}>*</Text></Text>
             <Picker
                 selectedValue={selectedState}

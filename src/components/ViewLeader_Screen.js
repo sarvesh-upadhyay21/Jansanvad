@@ -1,15 +1,16 @@
-import { useNavigation } from '@react-navigation/native';
+// ViewLeaderScreen.js
 import React, { useState } from 'react';
 import { Image, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import CustomHeader from '../header/CustomHeader';
+import HeaderProfile from '../header/Header_Screen';
 
 const leaderData = [
-    { id: 1, imageUrl: require('../assets/images/India.png'), name: 'Leader 1', designation: 'CEO', state: 'California', details: 'Details for Leader 1...' },
-    { id: 2, imageUrl: require('../assets/images/India.png'), name: 'Leader 2', designation: 'CTO', state: 'New York', details: 'Details for Leader 2...' },
-    { id: 3, imageUrl: require('../assets/images/India.png'), name: 'Leader 3', designation: 'COO', state: 'Texas', details: 'Details for Leader 3...' },
+    { id: 1, imageUrl: require('../assets/images/cm_images/billgates.png'), name: 'Bill Gates', designation: 'Co-founder of Microsoft', state: 'Seattle', details: 'Co-chair of the Bill & Melinda Gates Foundation' },
+    { id: 3, imageUrl: require('../assets/images/cm_images/deepak.jpg'), name: 'Deepak Singh', designation: 'Software Developer', state: 'Delhi', details: 'New Delhi india' },
+    { id: 2, imageUrl: require('../assets/images/cm_images/sarvesh.jpg'), name: 'Sarvesh Upadhyay', designation: 'Software Developer', state: 'Prayagraj', details: 'Prayagraj utter pradesh india' },
 ];
 
 const ViewLeaderScreen = () => {
-    const navigation = useNavigation();
     const [selectedLeader, setSelectedLeader] = useState(null);
 
     const displayedLeaders = [];
@@ -27,14 +28,8 @@ const ViewLeaderScreen = () => {
     return (
         <View style={styles.container}>
             <StatusBar barStyle='light-content' />
-            <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}>
-                    <Text style={styles.backText}>Back</Text>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.titleContainer}>
-                <Text style={styles.title}>Leaders</Text>
-            </View>
+            {/* <CustomHeader title="Leaders" /> */}
+            {/* <HeaderProfile title="Leaders" /> */}
             <ScrollView contentContainerStyle={styles.scrollViewContent}>
                 <View style={styles.leadersContainer}>
                     {displayedLeaders.map((leader, index) => (
@@ -68,26 +63,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
-    header: {
-        height: 100,
-        backgroundColor: '#007aff',
-        justifyContent: 'center',
-        paddingHorizontal: 16,
-    },
-    backText: {
-        color: '#fff',
-        fontSize: 16,
-        marginTop: 30,
-    },
-    titleContainer: {
-        alignItems: 'center',
-        marginBottom: 20,
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
     leadersContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
@@ -105,15 +80,20 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
+        flexDirection: 'row',
+        width: '100%',
+        height: 120,
     },
     profileImage: {
         width: 100,
-        height: 100,
+        height: 120,
         borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
+        borderBottomLeftRadius: 10,
     },
     cardContent: {
         padding: 10,
+        justifyContent: 'center',
+        width: '70%',
     },
     leaderName: {
         fontSize: 18,

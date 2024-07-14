@@ -40,7 +40,7 @@ const GalleryScreen = () => {
     // Function to render each static image item
     const renderStaticImageItem = (index) => (
         <TouchableOpacity key={index} style={styles.imageContainer} onPress={() => navigateToImageDetail(index)}>
-            <Image source={require('../assets/images/India.png')} resizeMode='cover' style={styles.image} />
+            <Image source={require('../assets/images/cm_images/sarvesh.jpg')} resizeMode='cover' style={styles.image} />
             <Text style={styles.dateLabel}>{imageDates[index]}</Text>
         </TouchableOpacity>
     );
@@ -51,14 +51,7 @@ const GalleryScreen = () => {
     
 
     return (
-        <View style={styles.container}>
-            <StatusBar barStyle='light-content' />
-            <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}>
-                    <Text style={styles.backText}>Back</Text>
-                </TouchableOpacity>
-            </View>
-           
+        <View style={styles.container}>           
             <ScrollView contentContainerStyle={styles.scrollViewContent}>
                 <View style={styles.imageList}>
                     {/* Render multiple static images */}

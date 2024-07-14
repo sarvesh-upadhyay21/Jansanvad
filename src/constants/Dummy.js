@@ -5,76 +5,41 @@ export const portfolio = {
 }
 
 
-export const coins = [
+export const eventsData = [
 {
     id:1,
-    currency:'लोकसभा चुनाव 2024',
-    // symbol:'BTC',
+    title:'लोकसभा चुनाव',
     image: require("../assets/images/India.png"),
-    amount :'सभी आगामी 5 जून को विजय जलूस मे शामिल होने के लिए आमंत्रित है. आपका आपके द्वारा चुना गया अपना सांसद...',
-    // changes :'+3.42%',
-    // type :'I', //I = increase , D = Decrease
-    // wallet:{
-    //     value:'4273.10',
-    //     crypto:'0.023'
-    // }
+    news_details :'लोकसभा चुनाव में कांग्रेस और सपा को उत्‍तर प्रदेश में मिली सफलता से नेताओं और कार्यकर्ताओं का हौसला बढ़ा हुआ है। सपा को जहां 37 तो कांग्रेस को छह सीटों पर जीत हासिल हुई है।...'
 },
 {
     id:2,
-    currency:'लोकसभा चुनाव 2024',
-    // symbol:'BTC',
+    title:'प्रधानमंत्री नरेंद्र मोदी',
     image: require("../assets/images/India.png"),
-    amount :'लोकसभा चुनाव 2024 में सातवें चरण का मतदान 1 जून को होगा. इसके अलावा इंडिया ब्लॉक के नेताओं की दिल्ली में बैठक भी होगी.',
-    // changes :'+3.42%',
-    // type :'I', //I = increase , D = Decrease
-    // wallet:{
-    //     value:'4273.10',
-    //     crypto:'0.023'
-    // }
+    news_details :'प्रधानमंत्री नरेंद्र मोदी को रूस के सर्वोच्च सम्मान ‘ऑर्डर ऑफ सेंट एंड्र्यू एपोस्टल’ से सम्मानित किया गया। रूस के राष्ट्रपति व्लादिमीर पुतिन ने पीएम मोदी को यह सम्मान दिया।.'
 },
 {
     id:3,
-    currency:'Events Heading',
-    // symbol:'BTC',
+    title:'शुक्रवार कीर्ति चक्र से सम्मानित',
     image: require("../assets/images/India.png"),
-    amount :'लोकसभा चुनाव 2024 में सातवें चरण का मतदान 1 जून को होगा. इसके अलावा इंडिया ब्लॉक के नेताओं की दिल्ली में बैठक भी होगी.',
-    // changes :'+3.42%',
-    // type :'I', //I = increase , D = Decrease
-    // wallet:{
-    //     value:'4273.10',
-    //     crypto:'0.023'
-    // }
+    news_details :'राष्ट्रपति द्रौपदी मुर्मू ने शुक्रवार को कैप्टन अंशुमान सिंह को मरणोपरांत कीर्ति चक्र से सम्मानित किया। ये सम्मान उनकी पत्नी स्मृति ने ग्रहण किया। जब कैप्टन अंशुमान सिंह की पत्नी को कीर्ति चक्र दिया तो वहां बैठे हर किसी की आंख नम हो गई। अंशुमान सिंह की पत्नी की हिम्मत और जज्बे को देख हर कोई शहीद की शहादत को याद करने लगा।.'
 },
 {
     id:4,
-    currency:'Events Heading',
-    // symbol:'BTC',
+    title:'उत्तर प्रदेश में भगदड़',
     image: require("../assets/images/India.png"),
-    amount :'लोकसभा चुनाव 2024 में सातवें चरण का मतदान 1 जून को होगा. इसके अलावा इंडिया ब्लॉक के नेताओं की दिल्ली में बैठक भी होगी.',
-    // changes :'+3.42%',
-    // type :'I', //I = increase , D = Decrease
-    // wallet:{
-    //     value:'4273.10',
-    //     crypto:'0.023'
-    // }
+    news_details :'उत्तर प्रदेश के हाथरस में 2 जुलाई को भोले बाबा के सत्संग में भगदड़ के बाद 121 लोगों की मौत का मामला लगातार तूल पकड़ता जा रहा है । इस बीच पुलिस विभाग धर पकड़ कर आरोपियों को गिरफ्तार कर रही है, तो यूपी सरकार ने भी जिम्मेदार अधिकारियों पर एक्शन लेते हुए SDM,CO और तहसीलदार समेत 6 अधिकारियों को लापरवाही बरतने के आरोपों में सस्पेंड कर दिया।.'
 },
 {
     id:5,
-    currency:'Events Heading',
-    // symbol:'BTC',
+    title:'Mumbai Rain Update',
     image: require("../assets/images/India.png"),
-    amount :'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content.',
-    // changes :'+3.42%',
-    // type :'I', //I = increase , D = Decrease
-    // wallet:{
-    //     value:'4273.10',
-    //     crypto:'0.023'
-    // }
+    news_details :'महाराष्ट्र के मुंबई में कल रात से भारी बारिश के कारण जनजीवन अस्त-व्यस्त हो गया है। शहर के कई हिस्सों में जलभराव हो गया है। अगले 24 घंटों में मुंबई शहर और उपनगरों में मध्यम से भारी बारिश होने की संभावना है। वहीं कुछ स्थानों पर भारी से बहुत भारी बारिश होने की भी संभावना है.'
 },
 
 ]
 
 const bnb_price = '450'
-const dummyData = { portfolio,coins,bnb_price}
+const dummyData = { portfolio,eventsData,bnb_price}
 
 export default dummyData

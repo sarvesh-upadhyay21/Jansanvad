@@ -122,24 +122,30 @@ const Dashboard = () => {
                 <View style={styles.actionCenterContainer}>
                     <View style={styles.actionCenterRow}>
                         <View style={styles.actionCenterItem}>
-                            <ActionCenter img_src={require('../assets/icons/complain.png')} img_text="Complaint" onPress={handleComplaintPress} />
+                            <ActionCenter
+                                img_src={require('../assets/icons/complain.png')}
+                                img_text="Complaint"
+                                onPress={handleComplaintPress}
+                                color="#2249DA"
+                            />
                         </View>
                         <View style={styles.actionCenterItem}>
-                            <ActionCenter img_src={require('../assets/icons/suggestions.png')} img_text="Suggestions" onPress={handleSuggestionPress} />
+                            <ActionCenter img_src={require('../assets/icons/suggestions.png')} img_text="Suggestions" onPress={handleSuggestionPress} color="#2249DA" />
                         </View>
                         <View style={styles.actionCenterItem}>
-                            <ActionCenter img_src={require('../assets/icons/invitation.png')} img_text="Invite" onPress={handleInvitePress} />
+                            <ActionCenter img_src={require('../assets/icons/invitation.png')} img_text="Invite" onPress={handleInvitePress} color="#2249DA" />
                         </View>
                         <View style={styles.actionCenterItem}>
-                            <ActionCenter img_src={require('../assets/icons/leader.png')} img_text="View Leader" onPress={handleViewLeaderPress} />
+                            <ActionCenter img_src={require('../assets/icons/leader.png')} img_text="View Leader" onPress={handleViewLeaderPress} color="#2249DA" />
                         </View>
                         <View style={styles.actionCenterItem}>
-                            <ActionCenter img_src={require('../assets/icons/image-gallery.png')} img_text="Gallery" onPress={handleGalleryPress} />
+                            <ActionCenter img_src={require('../assets/icons/image-gallery.png')} img_text="Gallery" onPress={handleGalleryPress} color="#2249DA" />
                         </View>
                         <View style={styles.actionCenterItem}>
-                            <ActionCenter img_src={require('../assets/icons/resume.png')} img_text="My Info" onPress={handleInfoPress} />
+                            <ActionCenter img_src={require('../assets/icons/resume.png')} img_text="My Info" onPress={handleInfoPress} color="#2249DA" />
                         </View>
                     </View>
+
                 </View>
                 <View style={styles.eventsContainer}>
                     <View style={styles.eventsHeader}>
@@ -150,22 +156,27 @@ const Dashboard = () => {
                     </View>
                     <FlatList
                         keyExtractor={(item) => item.id}
-                        data={dummyData.coins}
+                        data={dummyData.eventsData}
                         renderItem={({ item }) => (
                             <View style={styles.eventItem}>
-                                <View style={styles.eventHeader}>
-                                    <Image style={styles.eventIcon} source={item.image} />
-                                    <Text style={styles.eventCurrency}>{item.currency}</Text>
-                                    <Text style={styles.eventTime}>2 mins ago</Text>
-                                </View>
-                                <View style={styles.eventContent}>
-                                    <Text style={styles.eventAmount}>{item.amount}</Text>
+                                <Text style={styles.eventTitle}>{item.title}</Text>
+                                <Text style={styles.eventDetails}>
+                                    {item.news_details.length > 150
+                                        ? item.news_details.slice(0, 150) + '...'
+                                        : item.news_details}
+                                </Text>
+                                <View style={styles.eventFooter}>
+                                    <Text style={styles.eventCategory}>Space</Text>
+                                    <Text style={styles.eventTime}>3 hours ago</Text>
+                                    <Image style={styles.eventAvatar} source={item.image} />
                                 </View>
                             </View>
                         )}
                         horizontal={true}
                     />
                 </View>
+
+
             </View>
         </View>
     );
@@ -283,7 +294,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginTop: 10,
+        marginTop: 10,
         paddingHorizontal: 10,
+        // marginBottom:20,
     },
     eventsTitle: {
         fontFamily: 'Roboto-Medium',
@@ -298,7 +311,7 @@ const styles = StyleSheet.create({
     eventItem: {
         position: 'relative',
         flexDirection: 'column',
-        height: hp('30%'),
+        height: hp('25%'),
         width: wp('70%'),
         borderWidth: 1,
         borderColor: '#ddd',
@@ -306,37 +319,38 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         marginRight: 10,
         marginTop: 10,
+        padding: 10,
     },
-    eventHeader: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingHorizontal: 10,
-        paddingTop: 15,
-    },
-    eventIcon: {
-        height: 25,
-        width: 25,
-    },
-    eventCurrency: {
+    eventTitle: {
         fontFamily: 'Roboto-Bold',
+        fontSize: 20,
         color: '#333',
-        fontSize: 18,
+    },
+    eventDetails: {
+        fontFamily: 'Roboto-Regular',
+        fontSize: 16,
+        color: '#666',
+        marginTop: 5,
+        marginBottom: 10,
+    },
+    eventFooter: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    eventCategory: {
+        fontFamily: 'Roboto-Medium',
+        fontSize: 16,
+        color: '#333',
     },
     eventTime: {
-        marginHorizontal: 10,
-        fontFamily: 'Roboto-Regular-Italic',
+        fontFamily: 'Roboto-Regular',
         fontSize: 14,
+        color: '#999',
     },
-    eventContent: {
-        flexDirection: 'row',
-        marginTop: 20,
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        padding: 5,
-    },
-    eventAmount: {
-        fontFamily: 'Roboto-Bold',
-        color: '#333',
-        fontSize: 20,
+    eventAvatar: {
+        width: 30,
+        height: 30,
+        borderRadius: 15,
     },
 });
