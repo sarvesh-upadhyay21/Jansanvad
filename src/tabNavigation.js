@@ -91,7 +91,7 @@ function AlltabNavigation() {
                 }}
             />
             <Stack.Screen
-                name="LeaderDetails"
+                name="LeaderDetailsScreen"
                 component={LeaderDetailsScreen}
                 options={{
                     headerShown: false

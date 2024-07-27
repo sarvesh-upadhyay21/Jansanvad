@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
         fontSize: wp('4%'), // Responsive font size
         fontWeight: 'bold',
         marginBottom: hp('2%'), // Responsive margin
-        color: '#333',
+        color: '#000',
         alignSelf: 'flex-start', // Align text to the left
     },
     input: {
@@ -175,6 +175,7 @@ const styles = StyleSheet.create({
         marginBottom: hp('2%'), // Responsive margin
         paddingHorizontal: wp('2%'), // Responsive padding
         backgroundColor: '#fff',
+        color: '#000', // Text color
     },
     disabledInput: {
         backgroundColor: '#eee',
@@ -182,7 +183,7 @@ const styles = StyleSheet.create({
     label: {
         fontSize: wp('4.5%'), // Responsive font size
         marginBottom: hp('1%'), // Responsive margin
-        color: '#333',
+        color: '#000',
         alignSelf: 'flex-start', // Align text to the left
     },
     asterisk: {
@@ -194,26 +195,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: wp('5%'), // Responsive padding
         borderRadius: 5,
     },
-    buttonText: {
-        color: '#fff',
-        fontSize: wp('4%'), // Responsive font size
-        fontWeight: 'bold',
-    },
-    header: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        height: hp('10%'), // Responsive height
-        backgroundColor: '#007aff',
-        justifyContent: 'center',
-        paddingHorizontal: wp('4%'), // Responsive padding
-    },
-    backText: {
-        color: '#000',
-        fontSize: wp('4%'), // Responsive font size
-        marginTop: hp('6%'), // Responsive margin
-    },
     picker: {
         height: hp('6%'), // Responsive height
         width: '100%',
@@ -222,8 +203,10 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#ccc',
         borderRadius: 5,
+        color: '#000', // Text color
     },
     scrollView: {
         maxHeight: hp('20%'), // Adjust height as needed
     },
 });
+

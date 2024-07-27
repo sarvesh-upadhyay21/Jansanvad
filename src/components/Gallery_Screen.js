@@ -73,6 +73,8 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         textAlign: 'center',
+        color: '#000',
+
     },
     scrollViewContent: {
         flexGrow: 1,

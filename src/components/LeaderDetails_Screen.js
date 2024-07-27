@@ -39,22 +39,27 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 10,
+        color: '#000',
     },
     designation: {
         fontSize: 18,
         marginBottom: 10,
+        color: '#000',
     },
     state: {
         fontSize: 16,
         marginBottom: 10,
+        color: '#000',
     },
     details: {
         fontSize: 14,
         marginBottom: 10,
+        color: '#000',
     },
     info: {
         fontSize: 12,
         marginBottom: 5,
+        color: '#000',
     },
     button: {
         backgroundColor: '#007AFF',

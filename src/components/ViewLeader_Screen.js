@@ -1,8 +1,7 @@
 // ViewLeaderScreen.js
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { Image, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import CustomHeader from '../header/CustomHeader';
-import HeaderProfile from '../header/Header_Screen';
 
 const leaderData = [
     { id: 1, imageUrl: require('../assets/images/cm_images/billgates.png'), name: 'Bill Gates', designation: 'Co-founder of Microsoft', state: 'Seattle', details: 'Co-chair of the Bill & Melinda Gates Foundation' },
@@ -11,6 +10,7 @@ const leaderData = [
 ];
 
 const ViewLeaderScreen = () => {
+    const navigation = useNavigation();
     const [selectedLeader, setSelectedLeader] = useState(null);
 
     const displayedLeaders = [];
@@ -98,13 +98,15 @@ const styles = StyleSheet.create({
     leaderName: {
         fontSize: 18,
         fontWeight: 'bold',
+        color: '#000', // Text color
     },
     leaderDesignation: {
         fontSize: 16,
+        color: '#000', // Text color
     },
     leaderState: {
         fontSize: 14,
-        color: '#888',
+        color: '#000', // Text color changed to black
     },
     scrollViewContent: {
         flexGrow: 1,
@@ -118,8 +120,11 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 10,
+        color: '#000', // Text color
     },
     selectedLeaderDetails: {
         fontSize: 16,
+        color: '#000', // Text color
     },
 });
+

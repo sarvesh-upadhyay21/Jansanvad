@@ -1,6 +1,6 @@
-import React from 'react';
-import { Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
 const imageUrl = '../assets/images/India.png';
 
@@ -23,7 +23,7 @@ const MyInformationScreen = () => {
     return (
         <View style={styles.container}>
             <View style={styles.profileContainer}>
-                <Image source={require('../assets/images/India.png')} resizeMode='cover' style={styles.profileImage} />
+                <Image source={require('../assets/images/cm_images/sarvesh.jpg')} resizeMode='cover' style={styles.profileImage} />
                 <Text style={styles.name}>{user.name}</Text>
             </View>
             <View style={styles.infoContainer}>
@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
     name: {
         fontSize: 20,
         fontWeight: 'bold',
+        color: '#000',
     },
     infoContainer: {
         flex: 1,
@@ -98,28 +99,10 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 16,
         fontWeight: 'bold',
+        color: '#000',
     },
     info: {
         fontSize: 16,
-    },
-    header: {
-        height: 100,
-        backgroundColor: '#007aff',
-        justifyContent: 'center',
-        paddingHorizontal: 16,
-    },
-    backText: {
-        color: '#fff',
-        fontSize: 16,
-        marginTop: 30,
-    },
-    titleContainer: {
-        alignItems: 'center',
-        marginBottom: 20,
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        textAlign: 'center',
+        color: '#000',
     },
 });

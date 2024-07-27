@@ -14,9 +14,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const email = req.body.email;
     const address = req.body.address;
     const password = req.body.password;
-
-
-    console.log(`${username},  ${dob},  ${mobile}, ${email}, ${address}, ${password},`);
+   console.log(`${username},  ${dob},  ${mobile}, ${email}, ${address}, ${password},`);
     // EMPTY VALIDATION PART
     if (!username || !dob || !mobile || !email || !address || !password) {
       res.status(400).json({ error: "All Fields Are Mandatory" });
@@ -24,19 +22,14 @@ const registerUser = asyncHandler(async (req, res) => {
 
     //CHECK USER IS AVAILABLE OR NOT
     const userAvailable = await UserModel.findOne({ mobile: mobile });
-
     if (userAvailable) {
       res.status(400).json({
-        error: "User Exists",
+        error: "User allready Exists",
         status_code: 400,
         timestamp: Date.now(),
       });
-
-
-
     } // if ends
     else {
-
       //HASH PASSWORD
       const hashedPass = await bcrypt.hash(password, 10);
       console.log("Hashed Password: ", hashedPass);
@@ -47,11 +40,8 @@ const registerUser = asyncHandler(async (req, res) => {
         email,
         address,
         password: hashedPass,
-
-      });
-
+        });
       console.log(`user created success ${user}`.cyan.underline.bold);
-
       if (user) {
         res.status(200).json({
           _id: user.name,

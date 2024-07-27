@@ -161,8 +161,8 @@ const Dashboard = () => {
                             <View style={styles.eventItem}>
                                 <Text style={styles.eventTitle}>{item.title}</Text>
                                 <Text style={styles.eventDetails}>
-                                    {item.news_details.length > 150
-                                        ? item.news_details.slice(0, 150) + '...'
+                                    {item.news_details.length > 120
+                                        ? item.news_details.slice(0, 120) + '...'
                                         : item.news_details}
                                 </Text>
                                 <View style={styles.eventFooter}>
