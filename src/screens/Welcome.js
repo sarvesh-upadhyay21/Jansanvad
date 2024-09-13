@@ -69,12 +69,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     image: {
-        width: '100%', // Adjusted to full width by default
-        height: hp('60%'), // Default height
+        width: '100%',
+        height: hp('60%'),
     },
     imageLandscape: {
-        width: wp('50%'), // Adjust the width as per your requirement when landscape
-        height: hp('30%'), // Adjust the height as per your requirement when landscape
+        width: wp('50%'),
+        height: hp('30%'),
     },
     textContainer: {
         flex: 2,

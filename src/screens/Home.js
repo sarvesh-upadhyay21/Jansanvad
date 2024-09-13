@@ -4,6 +4,7 @@ import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Search from './Search';
 import Dashboard from './dashBoard';
+import LinearGradient from 'react-native-linear-gradient';
 
 const Tab = createBottomTabNavigator();
 const { width } = Dimensions.get('window');
@@ -17,10 +18,18 @@ const Home = () => {
           position: 'absolute',
           height: hp('7%'), // Adjusted height for responsiveness
           width: wp('100%'), // Adjusted width for responsiveness
+          borderTopWidth: 0, // Optional: to remove border on the top of the tab bar
           ...styles.shadow,
         },
+        tabBarBackground: () => (
+          <LinearGradient
+            colors={['#2D97DA', '#2249D6']}
+            style={StyleSheet.absoluteFillObject}
+          />
+        ),
         tabBarShowLabel: false,
-      }}>
+      }}
+    >
       <Tab.Screen
         options={{
           tabBarIcon: ({ focused }) => (
@@ -32,10 +41,11 @@ const Home = () => {
               /> */}
               <Text
                 style={{
-                  color: focused ? '#fff' : 'grey',
+                  color: focused ? '#fff' : 'black',
                   fontFamily: 'Roboto-Bold',
                   fontSize: wp('4%'), // Adjusted font size for responsiveness
-                }}>
+                }}
+              >
                 Home
               </Text>
             </View>
@@ -43,11 +53,11 @@ const Home = () => {
         }}
         name="Dashboard"
         component={Dashboard}
-      /> 
+      />
       <Tab.Screen
         options={{
           tabBarIcon: ({ focused }) => (
-            <View>
+            <View style={{ alignItems: 'center' }}>
               {/* <Icon
                 name={focused ? 'search' : 'search-outline'}
                 size={20}
@@ -55,10 +65,11 @@ const Home = () => {
               /> */}
               <Text
                 style={{
-                  color: focused ? '#fff' : 'grey',
+                  color: focused ? '#fff' : 'black',
                   fontSize: wp('4%'), // Adjusted font size for responsiveness
                   fontFamily: 'Roboto-Bold',
-                }}>
+                }}
+              >
                 Search
               </Text>
             </View>
@@ -77,8 +88,18 @@ const styles = StyleSheet.create({
   shadow: {
     elevation: 5,
     shadowColor: '#000',
-    backgroundColor: '#00003f',
+    backgroundColor: '#2249D6',
     borderWidth: 1,
     borderColor: 'transparent',
+  },
+  shadow: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.5,
+    elevation: 5,
   },
 });
