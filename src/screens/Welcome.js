@@ -42,7 +42,7 @@ const Welcome = ({ navigation }) => {
                         <Text style={styles.subtitle}>Engage in Meaningful Public Discourse with Us</Text>
                         <Text style={styles.description}>This app is Powered by "Digimarps" a leading Digital Marketing Company</Text>
                        
-                            <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.button}>
+                            <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')} style={styles.button}>
                                 <Text style={styles.buttonText}>Get Started</Text>
                             </TouchableOpacity>
                         

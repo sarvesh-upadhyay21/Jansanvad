@@ -29,48 +29,48 @@ const Dashboard = () => {
     const handleComplaintPress = () => {
         if (isVerified) {
             navigation.navigate('ComplaintScreen');
-        } else {
-            navigation.navigate('VerificationScreen');
+        // } else {
+        //     navigation.navigate('VerificationScreen');
         }
     };
 
     const handleSuggestionPress = () => {
         if (isVerified) {
             navigation.navigate('ComplaintScreen');
-        } else {
-            navigation.navigate('VerificationScreen');
+        // } else {
+        //     navigation.navigate('VerificationScreen');
         }
     };
 
     const handleInvitePress = () => {
         if (isVerified) {
             navigation.navigate('ComplaintScreen');
-        } else {
-            navigation.navigate('VerificationScreen');
+        // } else {
+        //     navigation.navigate('VerificationScreen');
         }
     };
 
     const handleViewLeaderPress = () => {
         if (isVerified) {
             navigation.navigate('ViewLeaderScreen');
-        } else {
-            navigation.navigate('VerificationScreen');
+        // } else {
+        //     navigation.navigate('VerificationScreen');
         }
     };
 
     const handleGalleryPress = () => {
         if (isVerified) {
             navigation.navigate('GalleryScreen');
-        } else {
-            navigation.navigate('VerificationScreen');
+        // } else {
+        //     navigation.navigate('VerificationScreen');
         }
     };
 
     const handleInfoPress = () => {
         if (isVerified) {
             navigation.navigate('MyInformationScreen');
-        } else {
-            navigation.navigate('VerificationScreen');
+        // } else {
+        //     navigation.navigate('VerificationScreen');
         }
     };
 
@@ -80,7 +80,7 @@ const Dashboard = () => {
     const handleLogout = async () => {
         await AsyncStorage.removeItem('verifiedToken');
         setIsVerified(false);
-        navigation.replace('VerificationScreen');
+        navigation.replace('Welcome');
         // navigation.replace('Home');
     };
 

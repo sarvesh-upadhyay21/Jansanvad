@@ -47,6 +47,13 @@ function AlltabNavigation() {
                     headerShown: false
                 }}
             />
+             <Stack.Screen
+                name="LoginScreen"
+                component={LoginScreen}
+                options={{
+                    headerShown: false
+                }}
+            />
 
             <Stack.Screen
                 name="GalleryScreen"

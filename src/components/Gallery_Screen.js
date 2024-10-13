@@ -4,40 +4,11 @@ import { useNavigation } from '@react-navigation/native';
 
 const GalleryScreen = () => {
     const navigation = useNavigation();
-
-    // Define the number of static images you want to display
-    const numberOfImages = 20;
-
-    // Array of dates corresponding to each image (for demonstration)
+    const numberOfImages = 2;
     const imageDates = [
         '2024-05-01',
-        '2024-05-02',
-        '2024-05-02',
-        '2024-05-02',
-        '2024-05-02',
-        '2024-05-02',
-        '2024-05-02',
-        '2024-05-02',
-        '2024-05-02',
-        '2024-05-02',
-        '2024-05-02',
-        '2024-05-02',
-        '2024-05-02',
-        '2024-05-02',
-        '2024-05-02',
-        '2024-05-02',
-        '2024-05-02',
-        '2024-05-02',
-        '2024-05-02',
-        '2024-05-02',
-        '2024-05-02',
-        '2024-05-02',
-        '2024-05-02',
-        '2024-05-02',
-        // Add more dates here corresponding to each image
     ];
 
-    // Function to render each static image item
     const renderStaticImageItem = (index) => (
         <TouchableOpacity key={index} style={styles.imageContainer} onPress={() => navigateToImageDetail(index)}>
             <Image source={require('../assets/images/cm_images/sarvesh.jpg')} resizeMode='cover' style={styles.image} />
