@@ -1,26 +1,36 @@
+import React, { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import Search from './Search';
-import Dashboard from './dashBoard';
 import LinearGradient from 'react-native-linear-gradient';
 
+// Screens
+import AdminDashboard from '../components/admin/AdminDashboard';
+import Dashboard from './dashBoard';
+import Search from './Search';
+
+// User Role Context
+import { useUserRole } from '../MyContext'; 
+
+
+// Constants
 const Tab = createBottomTabNavigator();
 const { width } = Dimensions.get('window');
 
 const Home = () => {
+  const { userRole } = useUserRole(); // Access the user role
+
+  const tabBarIcon = (label, focused) => (
+    <View style={styles.tabIconContainer}>
+      <Text style={[styles.tabText, { color: focused ? '#fff' : '#000' }]}>{label}</Text>
+    </View>
+  );
+
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: {
-          position: 'absolute',
-          height: hp('7%'), // Adjusted height for responsiveness
-          width: wp('100%'), // Adjusted width for responsiveness
-          borderTopWidth: 0, // Optional: to remove border on the top of the tab bar
-          ...styles.shadow,
-        },
+        tabBarStyle: styles.tabBarStyle,
         tabBarBackground: () => (
           <LinearGradient
             colors={['#2D97DA', '#2249D6']}
@@ -30,53 +40,30 @@ const Home = () => {
         tabBarShowLabel: false,
       }}
     >
+      {userRole === 'Admin' ? (
+        <Tab.Screen
+          name="AdminDashboard"
+          component={AdminDashboard}
+          options={{
+            tabBarIcon: ({ focused }) => tabBarIcon('Admin Dashboard', focused),
+          }}
+        />
+      ) : (
+        <Tab.Screen
+          name="Dashboard"
+          component={Dashboard}
+          options={{
+            tabBarIcon: ({ focused }) => tabBarIcon('Dashboard', focused),
+          }}
+        />
+      )}
+
       <Tab.Screen
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <View style={{ alignItems: 'center' }}>
-              {/* <Icon
-                name={focused ? 'home' : 'home-outline'}
-                size={20}
-                color={focused ? '#fff' : 'grey'}
-              /> */}
-              <Text
-                style={{
-                  color: focused ? '#fff' : 'black',
-                  fontFamily: 'Roboto-Bold',
-                  fontSize: wp('4%'), // Adjusted font size for responsiveness
-                }}
-              >
-                Home
-              </Text>
-            </View>
-          ),
-        }}
-        name="Dashboard"
-        component={Dashboard}
-      />
-      <Tab.Screen
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <View style={{ alignItems: 'center' }}>
-              {/* <Icon
-                name={focused ? 'search' : 'search-outline'}
-                size={20}
-                color={focused ? '#fff' : 'grey'}
-              /> */}
-              <Text
-                style={{
-                  color: focused ? '#fff' : 'black',
-                  fontSize: wp('4%'), // Adjusted font size for responsiveness
-                  fontFamily: 'Roboto-Bold',
-                }}
-              >
-                Search
-              </Text>
-            </View>
-          ),
-        }}
         name="Search"
         component={Search}
+        options={{
+          tabBarIcon: ({ focused }) => tabBarIcon('Search', focused),
+        }}
       />
     </Tab.Navigator>
   );
@@ -84,13 +71,21 @@ const Home = () => {
 
 export default Home;
 
+// Styles
 const styles = StyleSheet.create({
-  shadow: {
+  tabBarStyle: {
+    position: 'absolute',
+    height: hp('7%'),
+    width: wp('100%'),
+    borderTopWidth: 0,
     elevation: 5,
-    shadowColor: '#000',
-    backgroundColor: '#2249D6',
-    borderWidth: 1,
-    borderColor: 'transparent',
+  },
+  tabIconContainer: {
+    alignItems: 'center',
+  },
+  tabText: {
+    fontFamily: 'Roboto-Bold',
+    fontSize: wp('4%'),
   },
   shadow: {
     shadowColor: '#000',
