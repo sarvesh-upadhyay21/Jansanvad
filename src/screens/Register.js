@@ -4,28 +4,26 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, ScrollView,
 const { width, height } = Dimensions.get('window');
 
 const Register = () => {
-  const [username, setUsername] = useState('');
-  const [mobile, setMobile] = useState('');
+  const [name, setName] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
   const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [dob, setDob] = useState('');
-  const [address, setAddress] = useState('');
+  const [emailAddress, setEmailAddress] = useState('');
   const [errors, setErrors] = useState({});
 
   const validate = () => {
     let valid = true;
     let newErrors = {};
 
-    if (!username) {
-      newErrors.username = 'Username is required';
+    if (!name) {
+      newErrors.name = 'Name is required';
       valid = false;
     }
 
-    if (!mobile) {
-      newErrors.mobile = 'Mobile number is required';
+    if (!mobileNumber) {
+      newErrors.mobileNumber = 'Mobile number is required';
       valid = false;
-    } else if (mobile.length !== 10) {
-      newErrors.mobile = 'Mobile number must be exactly 10 digits';
+    } else if (mobileNumber.length !== 10) {
+      newErrors.mobileNumber = 'Mobile number must be exactly 10 digits';
       valid = false;
     }
 
@@ -37,12 +35,11 @@ const Register = () => {
       valid = false;
     }
 
-    // Email validation
-    if (!email) {
-      newErrors.email = 'Email is required';
+    if (!emailAddress) {
+      newErrors.emailAddress = 'Email is required';
       valid = false;
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      newErrors.email = 'Please enter a valid email';
+    } else if (!/\S+@\S+\.\S+/.test(emailAddress)) {
+      newErrors.emailAddress = 'Please enter a valid email';
       valid = false;
     }
 
@@ -53,37 +50,44 @@ const Register = () => {
   const handleSubmit = async () => {
     if (validate()) {
       const requestData = {
-        username,
-        dob,
-        mobile,
-        email,
-        address,
-        password,
+        regId: 0,
+        name,
+        emailAddress,
+        mobileNumber,
+        password
       };
   
       try {
-        const response = await fetch('http://localhost:5000/api/register', {
+        const response = await fetch('http://13.201.123.93/api/UserRegistration/Register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'accept': '*/*',
           },
           body: JSON.stringify(requestData),
         });
+  
+        // Check if the response body exists
+        const contentLength = response.headers.get('content-length');
+        const hasBody = contentLength && contentLength !== '0';
   
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
   
-        const data = await response.json();
-        Alert.alert('Registration Successful!', `Response: ${data.message || 'User registered successfully!'}`);
+        // Only attempt to parse JSON if the body exists
+        if (hasBody) {
+          const data = await response.json();
+          Alert.alert('Registration Successful!', `Response: ${data.message || 'User registered successfully!'}`);
+        } else {
+          Alert.alert('Registration Successful!', 'User registered successfully!');
+        }
   
         // Reset input fields after success
-        setUsername('');
-        setMobile('');
+        setName('');
+        setMobileNumber('');
         setPassword('');
-        setEmail('');
-        setDob('');
-        setAddress('');
+        setEmailAddress('');
         setErrors({});
       } catch (error) {
         Alert.alert('Error', error.message);
@@ -94,49 +98,19 @@ const Register = () => {
   };
   
 
-  const handleUsernameChange = (value) => {
-    setUsername(value);
-    if (value) {
-      setErrors((prev) => ({ ...prev, username: null }));
-    }
-  };
-
-  const handleMobileChange = (value) => {
-    if (/^\d*$/.test(value) && value.length <= 10) {
-      setMobile(value);
-      if (value.length === 10) {
-        setErrors((prev) => ({ ...prev, mobile: null }));
-      }
-    }
-  };
-
-  const handlePasswordChange = (value) => {
-    setPassword(value);
-    if (value.length >= 6) {
-      setErrors((prev) => ({ ...prev, password: null }));
-    }
-  };
-
-  const handleEmailChange = (value) => {
-    setEmail(value);
-    if (/\S+@\S+\.\S+/.test(value)) {
-      setErrors((prev) => ({ ...prev, email: null }));
-    }
-  };
-
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
 
         <View style={styles.inputWrapper}>
-          <Text style={styles.label}>Username *</Text>
+          <Text style={styles.label}>Name *</Text>
           <TextInput
             style={styles.input}
-            placeholder="Enter your username"
-            value={username}
-            onChangeText={handleUsernameChange}
+            placeholder="Enter your name"
+            value={name}
+            onChangeText={setName}
           />
-          {errors.username && <Text style={styles.errorText}>{errors.username}</Text>}
+          {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
         </View>
 
         <View style={styles.inputWrapper}>
@@ -145,24 +119,23 @@ const Register = () => {
             style={styles.input}
             placeholder="Enter your mobile number"
             keyboardType="numeric"
-            value={mobile}
+            value={mobileNumber}
             maxLength={10}
-            onChangeText={handleMobileChange}
+            onChangeText={setMobileNumber}
           />
-          {errors.mobile && <Text style={styles.errorText}>{errors.mobile}</Text>}
+          {errors.mobileNumber && <Text style={styles.errorText}>{errors.mobileNumber}</Text>}
         </View>
 
-        {/* Email Field */}
         <View style={styles.inputWrapper}>
           <Text style={styles.label}>Email *</Text>
           <TextInput
             style={styles.input}
             placeholder="Enter your email"
             keyboardType="email-address"
-            value={email}
-            onChangeText={handleEmailChange}
+            value={emailAddress}
+            onChangeText={setEmailAddress}
           />
-          {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
+          {errors.emailAddress && <Text style={styles.errorText}>{errors.emailAddress}</Text>}
         </View>
 
         <View style={styles.inputWrapper}>
@@ -172,30 +145,9 @@ const Register = () => {
             placeholder="Enter your password"
             secureTextEntry={true}
             value={password}
-            onChangeText={handlePasswordChange}
+            onChangeText={setPassword}
           />
           {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
-        </View>
-
-        {/* Optional Fields */}
-        <View style={styles.inputWrapper}>
-          <Text style={styles.label}>Date of Birth</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter your date of birth"
-            value={dob}
-            onChangeText={setDob}
-          />
-        </View>
-
-        <View style={styles.inputWrapper}>
-          <Text style={styles.label}>Address</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter your address"
-            value={address}
-            onChangeText={setAddress}
-          />
         </View>
 
         <TouchableOpacity style={styles.button} onPress={handleSubmit}>
@@ -219,23 +171,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  title: {
-    fontSize: width * 0.07, // Responsive font size
-    fontWeight: 'bold',
-    color: '#007BFF',
-    marginBottom: height * 0.03,
-  },
   inputWrapper: {
     width: '100%',
     marginBottom: height * 0.02,
   },
   label: {
-    fontSize: width * 0.045, // Responsive font size
+    fontSize: width * 0.045,
     color: '#333',
     marginBottom: height * 0.01,
   },
   input: {
-    height: height * 0.06, // Responsive height
+    height: height * 0.06,
     borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 5,
@@ -245,19 +191,18 @@ const styles = StyleSheet.create({
   button: {
     width: '100%',
     backgroundColor: '#2284c4',
-    height: height * 0.07, // Responsive height
+    height: height * 0.07,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: height * 0.05,
   },
   buttonText: {
-    fontFamily: 'Roboto-Bold',
-    fontSize: width * 0.045, // Responsive font size
+    fontSize: width * 0.045,
     color: '#fff',
   },
   errorText: {
     color: 'red',
-    marginTop: height * 0.005, // Responsive margin
+    marginTop: height * 0.005,
   },
 });
