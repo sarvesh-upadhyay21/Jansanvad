@@ -61,9 +61,9 @@ function AlltabNavigation() {
       />
 
       {/* Conditionally render screens based on role */}
-      {userRole === 'Admin' ? (
+      {userRole === 'Admin' && (
         <>
-        <Stack.Screen
+          <Stack.Screen
             name="Home"
             component={Home}
             options={{ headerShown: false }}
@@ -73,9 +73,10 @@ function AlltabNavigation() {
             component={AdminDashboard}
             options={{ headerShown: false }}
           />
-          
         </>
-      ) : (
+      )}
+
+      {userRole === 'User' && (
         <>
           <Stack.Screen
             name="Home"
@@ -149,9 +150,22 @@ function AlltabNavigation() {
           />
         </>
       )}
+
+      {userRole === 'Leader' && (
+        <>
+          <Stack.Screen
+            name="LeaderDetailsScreen"
+            component={LeaderDetailsScreen}
+            options={{ headerShown: false }}
+          />
+        </>
+      )}
     </Stack.Navigator>
   );
 }
+
+
+
 
 export default AlltabNavigation;
 
