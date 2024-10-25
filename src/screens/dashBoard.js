@@ -12,77 +12,44 @@ const Dashboard = () => {
     const [isVerified, setIsVerified] = useState(false);
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
+    // Remove token-based logic from useEffect
     useEffect(() => {
-        const checkToken = async () => {
-            const token = await AsyncStorage.getItem('verifiedToken');
-            console.log('tokentoken==>', token)
-            if (token === '123456') {
-                setIsVerified(true);
-            } else {
-                navigation.replace('VerificationScreen');
-            }
-        };
-
-        checkToken();
+        // Assuming role-based login will handle navigation logic.
     }, []);
 
+    // Handle button presses directly based on role
     const handleComplaintPress = () => {
-        if (isVerified) {
-            navigation.navigate('ComplaintScreen');
-        // } else {
-        //     navigation.navigate('VerificationScreen');
-        }
+        navigation.navigate('ComplaintScreen');
     };
 
     const handleSuggestionPress = () => {
-        if (isVerified) {
-            navigation.navigate('ComplaintScreen');
-        // } else {
-        //     navigation.navigate('VerificationScreen');
-        }
+        navigation.navigate('ComplaintScreen');
     };
 
     const handleInvitePress = () => {
-        if (isVerified) {
-            navigation.navigate('ComplaintScreen');
-        // } else {
-        //     navigation.navigate('VerificationScreen');
-        }
+        navigation.navigate('ComplaintScreen');
     };
 
     const handleViewLeaderPress = () => {
-        if (isVerified) {
-            navigation.navigate('ViewLeaderScreen');
-        // } else {
-        //     navigation.navigate('VerificationScreen');
-        }
+        navigation.navigate('ViewLeaderScreen');
     };
 
     const handleGalleryPress = () => {
-        if (isVerified) {
-            navigation.navigate('GalleryScreen');
-        // } else {
-        //     navigation.navigate('VerificationScreen');
-        }
+        navigation.navigate('GalleryScreen');
     };
 
     const handleInfoPress = () => {
-        if (isVerified) {
-            navigation.navigate('MyInformationScreen');
-        // } else {
-        //     navigation.navigate('VerificationScreen');
-        }
+        navigation.navigate('MyInformationScreen');
     };
 
     // Get current date
     const currentDate = new Date().toLocaleDateString();
 
-    const handleLogout = async () => {
-        await AsyncStorage.removeItem('verifiedToken');
-        setIsVerified(false);
+    const handleLogout = () => {
+        // Navigate the user to the Welcome screen after logout
         navigation.replace('Welcome');
-        // navigation.replace('Home');
     };
+
 
 
     const toggleDropdown = () => {

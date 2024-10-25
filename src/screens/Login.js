@@ -57,7 +57,9 @@ const LoginScreen = () => {
 
       if (response.ok) {
         if (data.token) {
-          await AsyncStorage.setItem('userToken', data.token); // Store token
+          console.log('===================>>>>>',data.userId)
+          await AsyncStorage.setItem('userToken', data.token);
+          await AsyncStorage.setItem('Id', data.userId.toString());
         }
         if (data.role === 'Admin') {
           setUserRole('Admin');
@@ -100,15 +102,16 @@ const LoginScreen = () => {
     <ScrollView contentContainerStyle={styles.container}>
       <StatusBar barStyle="dark-content" />
       <View style={styles.imageContainer}>
-        <Image
+        {/* <Image
           resizeMode="contain"
           style={[styles.image, isLandscape ? styles.imageLandscape : null]}
           source={require('../assets/images/Image-1.jpeg')}
-        />
+        /> */}
+                
+
       </View>
       <View style={styles.content}>
-        <Text style={styles.title}>Login</Text>
-
+      <Text style={styles.title}>Login</Text>
         <View style={styles.inputWrapper}>
           <Text style={styles.label}>Mobile Number<Text style={styles.requiredField}>*</Text></Text>
           <TextInput
@@ -188,7 +191,7 @@ const styles = StyleSheet.create({
     fontSize: wp('8%'),
     color: '#007aff',
     fontWeight: 'bold',
-    marginBottom: hp('2%'),
+    marginBottom: hp('9%')
   },
   inputWrapper: {
     width: '100%',
@@ -208,8 +211,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
-    backgroundColor: '#f9f9f9',
-    color: '000000',  // Set input text color to black
+    backgroundColor: '#ccc',
+    color: 'black',
   },
   button: {
     width: '100%',

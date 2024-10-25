@@ -103,7 +103,7 @@ const Register = () => {
       <ScrollView contentContainerStyle={styles.scrollView}>
 
         <View style={styles.inputWrapper}>
-          <Text style={styles.label}>Name *</Text>
+          <Text style={styles.label}>Name <Text style={styles.requiredField}>*</Text></Text>
           <TextInput
             style={styles.input}
             placeholder="Enter your name"
@@ -114,7 +114,7 @@ const Register = () => {
         </View>
 
         <View style={styles.inputWrapper}>
-          <Text style={styles.label}>Mobile Number *</Text>
+          <Text style={styles.label}>Mobile Number <Text style={styles.requiredField}>*</Text></Text>
           <TextInput
             style={styles.input}
             placeholder="Enter your mobile number"
@@ -127,7 +127,7 @@ const Register = () => {
         </View>
 
         <View style={styles.inputWrapper}>
-          <Text style={styles.label}>Email *</Text>
+          <Text style={styles.label}>Email <Text style={styles.requiredField}>*</Text></Text>
           <TextInput
             style={styles.input}
             placeholder="Enter your email"
@@ -139,7 +139,7 @@ const Register = () => {
         </View>
 
         <View style={styles.inputWrapper}>
-          <Text style={styles.label}>Password *</Text>
+          <Text style={styles.label}>Password<Text style={styles.requiredField}>*</Text></Text>
           <TextInput
             style={styles.input}
             placeholder="Enter your password"
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#ccc',
   },
   button: {
     width: '100%',
@@ -204,5 +204,8 @@ const styles = StyleSheet.create({
   errorText: {
     color: 'red',
     marginTop: height * 0.005,
+  },
+  requiredField: {
+    color: 'red',
   },
 });
